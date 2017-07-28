@@ -46,3 +46,9 @@ button {
 .instructions {
   margin-top: 30px;
 }
+.instructions span {
+  background: #eef;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+}

@@ -29,7 +29,6 @@ var Hangman = function Hangman() {
     ' X\n\\|/\n |\n/ \\',
   ];
 
-
 // public methods
 /**
  * Get valid characters array
@@ -57,10 +56,9 @@ var Hangman = function Hangman() {
  * @param {String} c
  */
   this.updateWord = function update(c) {
-    // mask word with _ (except used characters + passed value)
+    // mask word with underscores (except used characters + passed value)
     var r = new RegExp('[^' + usedChars.join('') + c + ']', 'gi');
     currentWord = word.replace(r, '_');
-    // console.log(currentWord);
     this.updateDisplay(currentWord);
   };
 /**
@@ -79,22 +77,25 @@ var Hangman = function Hangman() {
     if (this.isGameOver()) {
       return false;
     }
+    // check if letter has already been used
     // IE8 does not support array.indexOf, using String method
     if (usedChars.join('').indexOf(c) !== -1) {
       this.log('Already used this letter');
       return false;
     }
+    // check letter is within valid range
     if (validChars.join('').indexOf(c) === -1) {
       this.log('Not a valid letter');
       return false;
     }
+    // store letter to list of used characters
     usedChars.push(c);
     if (word.indexOf(c) === -1) {
       // incorrect guess
       $guy.innerText = gallows[gallows.length - guesses];
       guesses--;
-      // this.log('incorrect guess, ' + guesses + ' remaining');
       this.log('Incorrect guess');
+      // no more guesses left; lose
       if (guesses === 0) {
         this.log('You lose');
         this.setGameOver();
@@ -104,6 +105,7 @@ var Hangman = function Hangman() {
       // correct guess
       this.updateWord(c);
       this.log('Correct guess');
+      // word matches current state; win
       if (currentWord === word) {
         this.log('You win');
         this.setGameOver();
@@ -131,10 +133,11 @@ var Hangman = function Hangman() {
  * @return {Boolean}
  */
   this.init = function init(w) {
-    // word is not long enough 
+    // check length of word
     if (w.length < minWordLength) {
       alert('Word too short - ' + minWordLength + ' character minimum');
       return false;
+    // check word for invalid characters
     } else if (w.match(new RegExp('[^' + validChars.join('') + ']', 'gi'))) {
       alert('Invalid word - use only a-z');
       return false;
@@ -142,7 +145,7 @@ var Hangman = function Hangman() {
     console.log('init');
     gameOver = false;
     this.setWord(w);
-    // mask current word state with _
+    // mask current word state with underscores
     this.setCurrentWord(w.replace(/./gi, '_'));
     this.updateDisplay(currentWord);
     $input.classList.add('hidden');
@@ -171,7 +174,6 @@ var Hangman = function Hangman() {
   this.log = function log(m) {
     $log.innerHTML = m;
   };
-
 };
 
 // DOM elements
@@ -184,6 +186,7 @@ var $gallows = document.querySelector('#gallows');
 var $guy = document.querySelector('#guy');
 var $log = document.querySelector('#log');
 
+// instantialize Hangman instance
 var h = new Hangman();
 
 var startHandler = function startHandler(event) {
@@ -218,5 +221,4 @@ var keyHandler = function keyHandler(event) {
 
 $start.addEventListener('click', startHandler);
 $reset.addEventListener('click', resetHandler);
-// $input.addEventListener('keypress', keyHandler);
 $body.addEventListener('keypress', keyHandler);
