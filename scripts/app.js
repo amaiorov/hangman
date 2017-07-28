@@ -210,8 +210,10 @@ var keyHandler = function keyHandler(event) {
     case event.which === 13:
     // console.log(event.target);
       if (h.isGameOver() && event.target.id === 'text-input') {
+        alert('game over and text input');
         startHandler();
       } else if (h.isGameOver()) {
+        alert('just game over');
         h.reset();
       }
       break;
