@@ -1,2 +1,2 @@
-# hangman
+# Hangman
 Simple JS hangman implementation
