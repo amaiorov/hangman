@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>Ogilvy | Hangman</title>
-  <base href="/">
+  <base href="./">
   <meta name="description" content="hangman">
   <meta name="viewport" content="width=device-width">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -11,12 +11,44 @@
   <link rel="stylesheet" href="styles/main.css">
 </head>
 <body ng-app="hangmanApp" ng-cloak>
-    <!--[if lte IE 8]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-      <![endif]-->
+  <!--[if lte IE 8]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
 
-  <script src="scripts/angular.js"></script>
+  <h1>Hangman</h1>
+
+  <div id="gallows">
+   ______
+   !   \|
+        |
+        |
+        |
+        |
+       /|
+=========
+    <div id="guy"></div>
+  </div>
+  <h2 id="word"></h2>
+  <span id="log"></span>
+
+  <input type="text" id="text-input" placeholder="Enter a word">
+  <br><br>
+  <button id="start">Start</button>
+  <button id="reset" class="hidden">Play again</button>
+
+  <div class="instructions">
+    <strong>How to play</strong>
+    <ul>
+      <li>Enter a word in the box, 5 characters or more</li>
+      <li>Hit Start button or the <code>&lt;enter&gt;</code> key on your keyboard</li>
+      <li>Type a letter a-z, lowercase</li>
+      <li>If your guess is correct, all occurences of the letter will be shown</li>
+      <li>If your guess is incorrect, the hangman will progress towards his demise</li>
+      <li>Once you guess the complete word, you win</li>
+      <li>If you fail to guess the complete word after 7 attempts, you lose</li>
+    </ul>
+  </div>
+
   <script src="scripts/app.js"></script>
-  <script src="scripts/controllers/header.js"></script>
 </body>
 </html>
